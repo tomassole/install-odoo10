@@ -1,0 +1,1 @@
+# install-odoo10
