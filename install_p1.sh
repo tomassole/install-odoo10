@@ -15,6 +15,8 @@
 # https://github.com/Yenthe666/InstallScript/blob/10.0/odoo_install.sh
 ################################################################################
  
+sudo pip install --upgrade pip 
+ 
 ##fixed parameters
 #odoo
 OE_USER="odoo"
