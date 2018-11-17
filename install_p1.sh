@@ -12,6 +12,7 @@
 # sudo chmod +x odoo-install.sh
 # Execute the script to install Odoo:
 # ./odoo-install
+# https://github.com/Yenthe666/InstallScript/blob/10.0/odoo_install.sh
 ################################################################################
  
 ##fixed parameters
