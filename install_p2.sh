@@ -1,11 +1,9 @@
+#!/bin/bash
 
 ##fixed parameters
 #openerp
 OE_USER="odoo"
-OE_HOME="$OE_USER"
-OE_HOME_EXT="/$OE_USER/$OE_USER-server"
 
-OE_USER="odoo/custom/OCA"
 OE_HOME="/opt/odoo/OCA"
 
 
