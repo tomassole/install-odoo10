@@ -1,0 +1,53 @@
+# https://aravinth.in/blog/our-blog-1/post/odoo-installation-on-ubuntu-18-04-2
+Odoo Installation on Ubuntu 18.04
+With SSL Certificates
+Packaged installers
+Odoo provides packaged installers for Windows, deb-based distributions (Debian, Ubuntu, …) and RPM-based distributions (Fedora, CentOS, RHEL, …) for both the Community and Enterprise versions.
+
+These packages automatically set up all dependencies (for the Community version), but may be difficult to keep up-to-date.
+
+Official Community packages with all relevant dependency requirements are available on our nightly server. Both Communtiy and Enterprise packages can be downloaded from our Download page (you must to be logged in as a paying customer or partner to download the Enterprise packages).
+
+Deb
+Community
+To install Odoo 10.0 Community on Debian-based distribution, execute the following commands as root:
+
+# wget -O - https://nightly.odoo.com/odoo.key | apt-key add -
+# echo "deb http://nightly.odoo.com/11.0/nightly/deb/ ./" >> /etc/apt/sources.list.d/odoo.list
+# apt update && apt install odoo
+# wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb
+You can then use the usual apt-get upgrade command to keep your installation up-to-date.
+
+Configuration
+The configuration file can be found at /etc/odoo/odoo.conf
+
+When the configuration file is edited, Odoo must be restarted using service:
+
+$ sudo service odoo restart
+Restarting odoo: ok
+Manual Install Dependencies
+For Odoo v10 with Python 2.7
+
+$ sudo apt install python-dateutil python-feedparser python-ldap python-libxslt1 python-lxml python-mako python-openid python-psycopg2 python-pybabel \
+python-pychart python-pydot python-pyparsing python-reportlab python-simplejson python-tz python-vatnumber python-vobject python-webdav python-werkzeug \
+python-xlwt python-yaml python-zsi python-docutils python-psutil python-mock python-unittest2 python-jinja2 python-pypdf python-decorator python-requests \
+python-passlib python-pil python-suds postgresql python-wand libmagickwand-dev imagemagick python-pip -y && sudo pip install gdata psycogreen ofxparse \
+XlsxWriter xlrd braintree
+ For Odoo v11 with Python 3
+
+$ sudo apt install python3 python3-pip python-pypdf2 python-dateutil python-feedparser python-ldap python-libxslt1 python-lxml python-mako \
+python-openid python-psycopg2 python-pychart python-pydot python-pyparsing python-reportlab python-simplejson python-tz python-vatnumber python-vobject \
+python-webdav python-werkzeug python-xlwt python-yaml python-zsi python-docutils python-psutil python-mock python-unittest2 python-jinja2 \
+python-decorator python-requests python-passlib python-pil postgresql libldap2-dev libsasl2-dev -y && sudo pip3 install pypdf2 Babel unoconv \
+python-dateutil psycopg2 psutil html2text docutils lxml pillow reportlab ninja2 requests gdata XlsxWriter vobject python-openid pyparsing pydot pyldap \
+mock mako Jinja2 ebaysdk feedparser xlwt phonenumbers ofxparse psycogreen suds-jurko pytz pyusb greenlet xlrd num2words pyyaml oauthlib pyOpenSSL pysftp \
+dropbox boto3 pyocclient qrcode passlib decorator gevent
+Certbot Install
+This tutorial uses the default Nginx configuration file instead of a separate server block file. We recommend creating new Nginx server block files for each domain because it helps to avoid some common mistakes and maintains the default files as a fallback configuration as intended. If you want to set up SSL using server blocks instead, you can follow this Nginx server blocks with Let's Encrypt tutorial.:
+
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt update && sudo apt install python-certbot-nginx -y
+$ sudo nano /etc/nginx/sites-available/example.com
+$ sudo certbot --nginx -d example.com
+$ sudo certbot renew --dry-run
+$ sudo certbot renew --pre-hook "service nginx stop" --post-hook "service nginx start"
